@@ -1,4 +1,5 @@
-import 'package:flutter/cupertino.dart';
+import 'package:firebase_authentication/custom_widgets/custom_button.dart';
+import 'package:firebase_authentication/screens/email_login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -26,27 +27,30 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          GestureDetector(
+          const SizedBox(
+            height: 50,
+          ),
+          CustomButton(
+            btnText: "Login with Google",
+            btnColor: Colors.red,
             onTap: () {
               googleSignIn();
             },
-            child: Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.red,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: const Center(
-                child: Text(
-                  "Login with Google",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
+          ),
+          const SizedBox(
+            height: 18,
+          ),
+          CustomButton(
+            btnText: "Login with Email",
+            btnColor: Colors.amber,
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const EmailLoginScreen(),
                 ),
-              ),
-            ),
+              );
+            },
           ),
         ],
       ),
@@ -61,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     if (user != null && (user.email != "" || user.email.isNotEmpty)) {
       print("Display Name --> ${user.displayName!}");
-      print("Email --> ${user.email!}");
+      print("Email --> ${user.email}");
     }
   }
 }
